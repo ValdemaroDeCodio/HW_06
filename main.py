@@ -43,31 +43,23 @@ def create_folders():  # Создаем папки для последующих
             print(f'Папка с именем {folder_name} уже существует')
 
 
+def find_replace(constants, index):
+    for extension in constants:
+        for file in directory.glob(f'**/*.{extension}'):
+            new_path = directory / FOLDERS[index] / normalize(file.name)
+            file.rename(new_path)
+
+
 def replace_files():
-    for extension in IMAGES:
-        for file in directory.glob(f'**/*.{extension}'):
-            new_path = directory / FOLDERS[0] / normalize(file.name)
-            file.rename(new_path)
+    find_replace(IMAGES, 0)
 
-    for extension in VIDEO:
-        for file in directory.glob(f'**/*.{extension}'):
-            new_path = directory / FOLDERS[1] / normalize(file.name)
-            file.rename(new_path)
+    find_replace(VIDEO, 1)
 
-    for extension in DOCS:
-        for file in directory.glob(f'**/*.{extension}'):
-            new_path = directory / FOLDERS[2] / normalize(file.name)
-            file.rename(new_path)
+    find_replace(DOCS, 2)
 
-    for extension in AUDIO:
-        for file in directory.glob(f'**/*.{extension}'):
-            new_path = directory / FOLDERS[3] / normalize(file.name)
-            file.rename(new_path)
+    find_replace(AUDIO, 3)
 
-    for extension in ARCHIVES:
-        for file in directory.glob(f'**/*.{extension}'):
-            new_path = directory / FOLDERS[4] / normalize(file.name)
-            file.rename(new_path)
+    find_replace(ARCHIVES, 4)
 
 
 def unpuck_archive():
@@ -92,5 +84,5 @@ def delete_empty_folders():
 if __name__ == '__main__':
     create_folders()
     replace_files()
-    unpuck_archive()
+    # unpuck_archive()
     delete_empty_folders()
