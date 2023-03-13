@@ -1,17 +1,14 @@
-CATEGORIES = dict(IMAGES=('.jpeg', '.png', '.jpg', '.svg'),
-                  VIDEO=('.avi', '.mp4', '.mov', '.mkv'),
-                  DOCS=('.doc', '.docx', '.txt', '.pdf', '.xlsx', '.pptx'),
-                  AUDIO=('.mp3', '.ogg', '.wav', '.amr'),
-                  ARCHIVES=('.zip', '.gz', '.tar'),
-                  OTHER=None
-                  )
+from string import punctuation
+
 
 CYRILLIC_SYMBOLS = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ'
 TRANSLATION = (
-    'a', 'b', 'v', 'g', 'd', 'e', 'e', 'j', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u',
-    'f', 'h', 'ts', 'ch', 'sh', 'sch', '', 'y', '', 'e', 'yu', 'ya', 'je', 'i', 'ji', 'g'
+    'a', 'b', 'v', 'g', 'd', 'e', 'e', 'j', 'z', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f',
+    'h', 'ts', 'ch', 'sh', 'sch', '', 'y', '', 'e', 'yu',
+    'ya', 'je', 'i', 'ji', 'g'
 )
-PROBLEM_SYMBOLS = ' !"#$%^&*()-+№;:?,>=<~\'{[]}|\\/@'
+PROBLEM_SYMBOLS = punctuation.replace('.', ' ')
 TRANS = {}
 
 for cyrillic, translation in zip(CYRILLIC_SYMBOLS, TRANSLATION):

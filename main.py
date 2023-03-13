@@ -1,5 +1,6 @@
-from constants import *
-from functions import *
+from functions import create_folders, replace_files,\
+    unpack_archive, delete_empty_folders
+from pathlib import Path
 from sys import argv
 
 
@@ -14,17 +15,27 @@ def print_in_cmd(directory):
         print('_' * 30)
 
 
-if __name__ == '__main__':
-    try:
-        directory = Path(argv[1])
-    except IndexError:
-        print("Must be path to folder")
+def main():
+    user_input = input(
+        f'Are you sure you want to sort files in "{argv[1]}" ?(y/n): ').lower()
 
-    if not directory.exists():
-        print("The folder doesn't exist")
-    else:
-        create_folders(directory)
-        replace_files(directory)
-        unpack_archive(directory)
-        delete_empty_folders(directory)
-        print_in_cmd(directory)
+    match user_input:
+        case 'n':
+            print('The programm was stopped by user.')
+        case 'y':
+            try:
+                directory = Path(argv[1])
+            except IndexError:
+                print('Must be path to folder')
+            if not directory.exists():
+                print("The folder doesn't exist")
+            else:
+                create_folders(directory)
+                replace_files(directory)
+                unpack_archive(directory)
+                delete_empty_folders(directory)
+                print_in_cmd(directory)
+
+
+if __name__ == '__main__':
+    main()

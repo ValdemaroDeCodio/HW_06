@@ -1,6 +1,23 @@
-from constants import *
+from constants import TRANS
 from pathlib import Path
 import shutil
+
+
+CATEGORIES = dict()
+
+
+with open('categories.txt') as fh:
+    contents = fh.read()
+    lines = contents.strip().split("\n")
+    for line in lines:
+        key_value = line.split(":")
+        key = key_value[0].strip()
+        values_str = key_value[1].strip()
+        values = values_str.split(",")
+        values = [value.strip() for value in values]
+        if not values_str:
+            CATEGORIES[key] = None
+        CATEGORIES[key] = values
 
 
 def normalize(name: str) -> str:
@@ -30,7 +47,7 @@ def find_replace(directory: Path, file: Path):
 
 
 def replace_files(directory: Path):
-    for file in directory.glob(f'**/*.*'):
+    for file in directory.glob('**/*.*'):
         find_replace(directory, file)
 
 
@@ -49,4 +66,4 @@ def delete_empty_folders(directory: Path):
 
     for folder in empty_folders:
         shutil.rmtree(str(folder))
-        print(f'{folder} folder deleted.')
+        print(f'{folder.name} folder deleted.')
